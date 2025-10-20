@@ -43,7 +43,7 @@ await db.insert('folderstable', {'name': 'clubs', 'previewImage': '', 'createdAt
 CREATE TABLE 'cardstable' (
 'id' INTEGER PRIMARY KEY,
 'name' TEXT,
-'suite' TEXT,
+'suit' TEXT,
 'imageURl' TEXT,
 'imageBytes' TEXT,
 'folderId' INTEGER,
@@ -52,63 +52,63 @@ FOREIGN KEY ('folderId') REFERENCES 'folderstable' ('id')
 )
 ''');
 // Spades (folderId: 1)
-await db.insert('cardstable', {'name': 'Ace', 'suite': 'spades', 'imageURl': '/assets/ace.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Two', 'suite': 'spades', 'imageURl': '/assets/two.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Three', 'suite': 'spades', 'imageURl': '/assets/three.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Four', 'suite': 'spades', 'imageURl': '/assets/four.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Five', 'suite': 'spades', 'imageURl': '/assets/five.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Six', 'suite': 'spades', 'imageURl': '/assets/six.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Seven', 'suite': 'spades', 'imageURl': '/assets/seven.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Eight', 'suite': 'spades', 'imageURl': '/assets/eight.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Nine', 'suite': 'spades', 'imageURl': '/assets/nine.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Ten', 'suite': 'spades', 'imageURl': '/assets/ten.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Jack', 'suite': 'spades', 'imageURl': '/assets/jack.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Queen', 'suite': 'spades', 'imageURl': '/assets/queen.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'King', 'suite': 'spades', 'imageURl': '/assets/king.jpg', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ace', 'suit': 'spades', 'imageURl': '/assets/ace.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Two', 'suit': 'spades', 'imageURl': '/assets/two.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Three', 'suit': 'spades', 'imageURl': '/assets/three.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Four', 'suit': 'spades', 'imageURl': '/assets/four.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Five', 'suit': 'spades', 'imageURl': '/assets/five.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Six', 'suit': 'spades', 'imageURl': '/assets/six.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Seven', 'suit': 'spades', 'imageURl': '/assets/seven.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Eight', 'suit': 'spades', 'imageURl': '/assets/eight.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Nine', 'suit': 'spades', 'imageURl': '/assets/nine.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ten', 'suit': 'spades', 'imageURl': '/assets/ten.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Jack', 'suit': 'spades', 'imageURl': '/assets/jack.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Queen', 'suit': 'spades', 'imageURl': '/assets/queen.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'King', 'suit': 'spades', 'imageURl': '/assets/king.png', 'imageBytes': '', 'folderId': 1, 'createdAt': DateTime.now().toIso8601String()});
 
 // Hearts (folderId: 2)
-await db.insert('cardstable', {'name': 'Ace', 'suite': 'hearts', 'imageURl': '/assets/ace.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Two', 'suite': 'hearts', 'imageURl': '/assets/two.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Three', 'suite': 'hearts', 'imageURl': '/assets/three.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Four', 'suite': 'hearts', 'imageURl': '/assets/four.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Five', 'suite': 'hearts', 'imageURl': '/assets/five.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Six', 'suite': 'hearts', 'imageURl': '/assets/six.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Seven', 'suite': 'hearts', 'imageURl': '/assets/seven.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Eight', 'suite': 'hearts', 'imageURl': '/assets/eight.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Nine', 'suite': 'hearts', 'imageURl': '/assets/nine.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Ten', 'suite': 'hearts', 'imageURl': '/assets/ten.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Jack', 'suite': 'hearts', 'imageURl': '/assets/jack.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Queen', 'suite': 'hearts', 'imageURl': '/assets/queen.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'King', 'suite': 'hearts', 'imageURl': '/assets/king.jpg', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ace', 'suit': 'hearts', 'imageURl': '/assets/ace.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Two', 'suit': 'hearts', 'imageURl': '/assets/two.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Three', 'suit': 'hearts', 'imageURl': '/assets/three.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Four', 'suit': 'hearts', 'imageURl': '/assets/four.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Five', 'suit': 'hearts', 'imageURl': '/assets/five.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Six', 'suit': 'hearts', 'imageURl': '/assets/six.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Seven', 'suit': 'hearts', 'imageURl': '/assets/seven.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Eight', 'suit': 'hearts', 'imageURl': '/assets/eight.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Nine', 'suit': 'hearts', 'imageURl': '/assets/nine.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ten', 'suit': 'hearts', 'imageURl': '/assets/ten.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Jack', 'suit': 'hearts', 'imageURl': '/assets/jack.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Queen', 'suit': 'hearts', 'imageURl': '/assets/queen.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'King', 'suit': 'hearts', 'imageURl': '/assets/king.png', 'imageBytes': '', 'folderId': 2, 'createdAt': DateTime.now().toIso8601String()});
 
 // Diamonds (folderId: 3)
-await db.insert('cardstable', {'name': 'Ace', 'suite': 'diamonds', 'imageURl': '/assets/ace.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Two', 'suite': 'diamonds', 'imageURl': '/assets/two.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Three', 'suite': 'diamonds', 'imageURl': '/assets/three.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Four', 'suite': 'diamonds', 'imageURl': '/assets/four.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Five', 'suite': 'diamonds', 'imageURl': '/assets/five.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Six', 'suite': 'diamonds', 'imageURl': '/assets/six.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Seven', 'suite': 'diamonds', 'imageURl': '/assets/seven.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Eight', 'suite': 'diamonds', 'imageURl': '/assets/eight.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Nine', 'suite': 'diamonds', 'imageURl': '/assets/nine.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Ten', 'suite': 'diamonds', 'imageURl': '/assets/ten.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Jack', 'suite': 'diamonds', 'imageURl': '/assets/jack.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Queen', 'suite': 'diamonds', 'imageURl': '/assets/queen.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'King', 'suite': 'diamonds', 'imageURl': '/assets/king.jpg', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ace', 'suit': 'diamonds', 'imageURl': '/assets/ace.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Two', 'suit': 'diamonds', 'imageURl': '/assets/two.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Three', 'suit': 'diamonds', 'imageURl': '/assets/three.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Four', 'suit': 'diamonds', 'imageURl': '/assets/four.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Five', 'suit': 'diamonds', 'imageURl': '/assets/five.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Six', 'suit': 'diamonds', 'imageURl': '/assets/six.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Seven', 'suit': 'diamonds', 'imageURl': '/assets/seven.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Eight', 'suit': 'diamonds', 'imageURl': '/assets/eight.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Nine', 'suit': 'diamonds', 'imageURl': '/assets/nine.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ten', 'suit': 'diamonds', 'imageURl': '/assets/ten.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Jack', 'suit': 'diamonds', 'imageURl': '/assets/jack.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Queen', 'suit': 'diamonds', 'imageURl': '/assets/queen.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'King', 'suit': 'diamonds', 'imageURl': '/assets/king.png', 'imageBytes': '', 'folderId': 3, 'createdAt': DateTime.now().toIso8601String()});
 
 // Clubs (folderId: 4)
-await db.insert('cardstable', {'name': 'Ace', 'suite': 'clubs', 'imageURl': '/assets/ace.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Two', 'suite': 'clubs', 'imageURl': '/assets/two.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Three', 'suite': 'clubs', 'imageURl': '/assets/three.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Four', 'suite': 'clubs', 'imageURl': '/assets/four.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Five', 'suite': 'clubs', 'imageURl': '/assets/five.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Six', 'suite': 'clubs', 'imageURl': '/assets/six.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Seven', 'suite': 'clubs', 'imageURl': '/assets/seven.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Eight', 'suite': 'clubs', 'imageURl': '/assets/eight.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Nine', 'suite': 'clubs', 'imageURl': '/assets/nine.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Ten', 'suite': 'clubs', 'imageURl': '/assets/ten.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Jack', 'suite': 'clubs', 'imageURl': '/assets/jack.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'Queen', 'suite': 'clubs', 'imageURl': '/assets/queen.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
-await db.insert('cardstable', {'name': 'King', 'suite': 'clubs', 'imageURl': '/assets/king.jpg', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ace', 'suit': 'clubs', 'imageURl': '/assets/ace.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Two', 'suit': 'clubs', 'imageURl': '/assets/two.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Three', 'suit': 'clubs', 'imageURl': '/assets/three.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Four', 'suit': 'clubs', 'imageURl': '/assets/four.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Five', 'suit': 'clubs', 'imageURl': '/assets/five.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Six', 'suit': 'clubs', 'imageURl': '/assets/six.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Seven', 'suit': 'clubs', 'imageURl': '/assets/seven.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Eight', 'suit': 'clubs', 'imageURl': '/assets/eight.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Nine', 'suit': 'clubs', 'imageURl': '/assets/nine.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Ten', 'suit': 'clubs', 'imageURl': '/assets/ten.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Jack', 'suit': 'clubs', 'imageURl': '/assets/jack.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'Queen', 'suit': 'clubs', 'imageURl': '/assets/queen.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+await db.insert('cardstable', {'name': 'King', 'suit': 'clubs', 'imageURl': '/assets/king.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
   }
 }
