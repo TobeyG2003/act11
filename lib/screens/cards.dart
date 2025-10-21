@@ -9,6 +9,7 @@ class CardsScreen extends StatefulWidget {
   @override
   State<CardsScreen> createState() => _CardsScreenState();
 }
+
 class _CardsScreenState extends State<CardsScreen> {
   final CardRepository _cardRepo = CardRepository();
   List<CardModel> cards = [];
@@ -31,8 +32,9 @@ class _CardsScreenState extends State<CardsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('${widget.folder.name} Cards')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // placeholder for add 
+        onPressed: () async {
+          _insertcard('Ace', widget.folder.name.toLowerCase());
+          await _loadCards();
         },
         child: const Icon(Icons.add),
       ),
@@ -68,14 +70,17 @@ class _CardsScreenState extends State<CardsScreen> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.edit, color: Colors.blue, size: 20),
-                      onPressed: () {
-                        // placeholder for update 
+                      onPressed: () async {
+                        _update(card.id!, card.name, card.suit);
+                        await _loadCards();
                       },
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                      onPressed: () {
-                        // placeholder for delete 
+                      onPressed: () async {
+ 
+                        _delete(card.id!, card.folderId!);
+                        await _loadCards();
                       },
                     ),
                   ],
