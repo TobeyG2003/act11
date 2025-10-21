@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'database_setup.dart';
+import 'dart:async';
+import 'screens/folders.dart';
 
 final dbHelper = DatabaseHelper();
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dbHelper.init();
   runApp(const MyApp());
 }
 
@@ -42,13 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          ],
-        ),
-      ),
+      body: const FoldersScreen(),
+
     );
   }
   void _insertcard(String name, String suit) async {
@@ -167,13 +166,12 @@ class Card {
   factory Card.fromMap(Map<String, dynamic> map) {
     return Card(
       id: map['id'],
-      name: map['name'],
-      suit: map['suit'],
-      imageUrl: map['imageUrl'],
+      name: map['name'] ?? '' ,
+      suit: map['suit'] ?? '',
+      imageUrl: ((map['imageUrl'] ?? map['imageURl'] ?? '').replaceFirst(RegExp(r'^/'), '')),
       imageBytes: map['imageBytes'],
       folderId: map['folderId'],
-      createdAt: DateTime.parse(map['createdAt']),
+      createdAt: DateTime.parse(map['createdAt']?? '') ?? DateTime.now(),
     );
   }
 }
-

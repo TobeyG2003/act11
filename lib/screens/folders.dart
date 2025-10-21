@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import '../main.dart';  
-import '../repository class/cardsrepo.dart';
-import '../repository class/folderrepo.dart';
+import '../main.dart' as models;
+import '../repository_class/folderrepo.dart';
 import 'cards.dart';
 
 class FoldersScreen extends StatefulWidget {
   const FoldersScreen({super.key});
+
   @override
   State<FoldersScreen> createState() => _FoldersScreenState();
 }
 
 class _FoldersScreenState extends State<FoldersScreen> {
   final FolderRepository _folderRepo = FolderRepository();
-  List<Folder> folders = [];
+  List<models.Folder> folders = [];
 
   @override
   void initState() {
@@ -38,46 +38,21 @@ class _FoldersScreenState extends State<FoldersScreen> {
           return Card(
             margin: const EdgeInsets.all(8),
             child: ListTile(
-              leading: folder.previewImage != null && folder.previewImage.isNotEmpty
-                  ? Image.asset(folder.previewImage, width: 50, height: 50)
+              leading: folder.previewImage != null && folder.previewImage!.isNotEmpty
+                  ? Image.asset(folder.previewImage!, width: 50, height: 50)
                   : const SizedBox(width: 50, height: 50),
               title: Text(folder.name),
-              subtitle: Text('${folder.cardCount} cards'),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () async {
-                    // deletes folder and cards
-                      final db = await dbHelper.cardsdb;
-                      await db.delete(
-                        'cardstable',
-                        where: 'folderId = ?',
-                        whereArgs: [folder.id!],
-                      );
-                      await db.delete(
-                        'folderstable',
-                        where: 'id = ?',
-                        whereArgs: [folder.id!],
-                      );
-
-                      debugPrint('Deleted folder: ${folder.name}');
-                      await _loadFolders();
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CardsScreen(folder: folder),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+              subtitle: Text('Created: ${folder.createdAt.toLocal()}'),
+              trailing: IconButton(
+                icon: const Icon(Icons.arrow_forward),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CardsScreen(folder: folder),
+                    ),
+                  );
+                },
               ),
             ),
           );

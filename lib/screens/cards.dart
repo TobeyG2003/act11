@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import '../main.dart';  
-import '../repository class/cardsrepo.dart';
-import '../repository class/folderrepo.dart';
+import '../repository_class/cardsrepo.dart';
+import '../main.dart' as models;
 
 class CardsScreen extends StatefulWidget {
-  final Folder folder;
+  final models.Folder folder;
   const CardsScreen({super.key, required this.folder});
+
   @override
   State<CardsScreen> createState() => _CardsScreenState();
 }
 
 class _CardsScreenState extends State<CardsScreen> {
   final CardRepository _cardRepo = CardRepository();
-  List<CardModel> cards = [];
+  List<models.Card> cards = [];
 
   @override
   void initState() {
@@ -21,74 +21,65 @@ class _CardsScreenState extends State<CardsScreen> {
   }
 
   Future<void> _loadCards() async {
-    final loadedCards = await _cardRepo.getCardsByFolderId(widget.folder.id);
-    setState(() {
-      cards = loadedCards;
-    });
-  }
+  await _cardRepo.debugPrintAllCards();
+  final loadedCards = await _cardRepo.getCardsByFolder(widget.folder.id!);
+  print('cards for ${widget.folder.name}: ${loadedCards.length}');
+  setState(() {
+    cards = loadedCards;
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('${widget.folder.name} Cards')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          _insertcard('Ace', widget.folder.name.toLowerCase());
-          await _loadCards();
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(8),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-        ),
+      appBar: AppBar(title: Text(widget.folder.name)),
+      body: ListView.builder(
         itemCount: cards.length,
         itemBuilder: (context, index) {
           final card = cards[index];
-          return Stack(
-            children: [
-              Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    card.imageURl != null && card.imageURl.isNotEmpty
-                        ? Image.asset(card.imageURl, width: 60, height: 60)
-                        : const SizedBox(width: 60, height: 60),
-                    const SizedBox(height: 4),
-                    Text(card.name),
-                  ],
-                ),
+          return Card(
+            margin: const EdgeInsets.all(8),
+            child: ListTile(
+              leading: Image.asset(card.imageUrl, width: 50, height: 50),
+              title: Text(card.name),
+              subtitle: Text(card.suit),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () async {
+                      await _cardRepo.deleteCard(card.id!);
+                      await _loadCards();
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.blue),
+                    onPressed: () async {
+                      // placeholder for update
+                    },
+                  ),
+                ],
               ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue, size: 20),
-                      onPressed: () async {
-                        _update(card.id!, card.name, card.suit);
-                        await _loadCards();
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                      onPressed: () async {
- 
-                        _delete(card.id!, card.folderId!);
-                        await _loadCards();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+ 
+          await _cardRepo.insertCard(
+            models.Card(
+              name: 'Ace',
+              suit: widget.folder.name.toLowerCase(),
+              imageUrl: '/assets/ace.png',
+              createdAt: DateTime.now(),
+            ),
+          );
+          await _loadCards();
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
