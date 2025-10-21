@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import '../main.dart';  
 import '../repository class/cardsrepo.dart';
 import '../repository class/folderrepo.dart';
-
+import 'cards.dart';
 
 class FoldersScreen extends StatefulWidget {
   const FoldersScreen({super.key});
   @override
   State<FoldersScreen> createState() => _FoldersScreenState();
 }
+
 class _FoldersScreenState extends State<FoldersScreen> {
   final FolderRepository _folderRepo = FolderRepository();
   List<Folder> folders = [];
@@ -25,6 +26,7 @@ class _FoldersScreenState extends State<FoldersScreen> {
       folders = loadedFolders;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +48,22 @@ class _FoldersScreenState extends State<FoldersScreen> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      // placeholder for delete 
+                    onPressed: () async {
+                    // deletes folder and cards
+                      final db = await dbHelper.cardsdb;
+                      await db.delete(
+                        'cardstable',
+                        where: 'folderId = ?',
+                        whereArgs: [folder.id!],
+                      );
+                      await db.delete(
+                        'folderstable',
+                        where: 'id = ?',
+                        whereArgs: [folder.id!],
+                      );
+
+                      debugPrint('Deleted folder: ${folder.name}');
+                      await _loadFolders();
                     },
                   ),
                   IconButton(

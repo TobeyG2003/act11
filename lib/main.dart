@@ -134,6 +134,18 @@ void _insertcard(String name, String suit) async {
       } else {
         num = 4;
       }
+
+      final db = await dbHelper.cardsdb;
+      final result = await db.rawQuery(
+        'SELECT COUNT(*) as count FROM cardstable WHERE folderId = ?',
+        [num],
+      );
+      int count = Sqflite.firstIntValue(result) ?? 0;
+
+      if (count >= 6) {
+        debugPrint('This folder can only hold 6 cards.');
+        return;
+  }
 	    Map<String, dynamic> row = {
 	      DatabaseHelper.cardname: name,
 	      DatabaseHelper.cardsuit: suit,
@@ -170,5 +182,16 @@ void _update(int id, String name, String suit) async {
 void _delete(int id) async {
 	    final rowsDeleted = await dbHelper.delete(id);
 	    debugPrint('deleted $rowsDeleted card(s): row $id');
+      
+      final db = await dbHelper.cardsdb;
+      final result = await db.rawQuery(
+        'SELECT COUNT(*) as count FROM cardstable WHERE folderId = ?',
+        [num],
+      );
+      int count = Sqflite.firstIntValue(result) ?? 0;
+      if (count < 3) {
+        debugPrint('You need at least 3 cards in this deck.');
+        return;
+      }
 	  }
 
