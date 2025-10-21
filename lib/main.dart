@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqlite_api.dart';
+import 'database_setup.dart';
+
+final dbHelper = DatabaseHelper();
 
 void main() {
   runApp(const MyApp());
@@ -117,4 +121,54 @@ class Card {
     );
   }
 }
+
+void _insertcard(String name, String suit) async {
+	    // row to insert
+      int num;
+      if (suit == 'spades') {
+        num = 1;
+      } else if (suit == 'hearts') {
+        num = 2;
+      } else if (suit == 'diamonds') {
+        num = 3;
+      } else {
+        num = 4;
+      }
+	    Map<String, dynamic> row = {
+	      DatabaseHelper.cardname: name,
+	      DatabaseHelper.cardsuit: suit,
+        DatabaseHelper.cardimageUrl: '/assets/${name.toLowerCase()}.png',
+        DatabaseHelper.cardfolderID: num,
+        DatabaseHelper.cardcreatedAt: DateTime.now().toIso8601String(),
+	    };
+	    final id = await dbHelper.insertcard(row);
+	    debugPrint('inserted row id: $id');
+	  }
+void _update(int id, String name, String suit) async {
+    int num;
+      if (suit == 'spades') {
+        num = 1;
+      } else if (suit == 'hearts') {
+        num = 2;
+      } else if (suit == 'diamonds') {
+        num = 3;
+      } else {
+        num = 4;
+      }
+	    // row to update
+	    Map<String, dynamic> row = {
+	      DatabaseHelper.cardid: id,
+	      DatabaseHelper.cardname: name,
+        DatabaseHelper.cardsuit: suit,
+	      DatabaseHelper.cardimageUrl: '/assets/${name.toLowerCase()}.png',
+        DatabaseHelper.cardfolderID: num,
+        DatabaseHelper.cardcreatedAt: DateTime.now().toIso8601String(),
+	    };
+	    final rowsAffected = await dbHelper.updatecard(row);
+	    debugPrint('updated $rowsAffected row(s)');
+	  }
+void _delete(int id) async {
+	    final rowsDeleted = await dbHelper.delete(id);
+	    debugPrint('deleted $rowsDeleted card(s): row $id');
+	  }
 

@@ -4,8 +4,16 @@ import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
   static const _databaseVersion = 1;
+  static const cardid = 'id';
+  static const cardname = 'name';
+  static const cardsuit = 'suit';
+  static const cardimageUrl = 'imageURl';
+  static const cardfolderID = 'folderId';
+  static const cardcreatedAt = 'createdAt';
+
   late Database foldersdb;
   late Database cardsdb;
+
 // this opens the database (and creates it if it doesn't exist)
   Future<void> init() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
@@ -41,13 +49,13 @@ await db.insert('folderstable', {'name': 'clubs', 'previewImage': '', 'createdAt
   Future _onCreateCards(Database db, int version) async {
     await db.execute('''
 CREATE TABLE 'cardstable' (
-'id' INTEGER PRIMARY KEY,
-'name' TEXT,
-'suit' TEXT,
-'imageURl' TEXT,
+$cardid INTEGER PRIMARY KEY,
+$cardname TEXT,
+$cardsuit TEXT,
+$cardimageUrl TEXT,
 'imageBytes' TEXT,
-'folderId' INTEGER,
-'createdAt' TEXT,
+$cardfolderID INTEGER,
+$cardcreatedAt TEXT,
 FOREIGN KEY ('folderId') REFERENCES 'folderstable' ('id')
 )
 ''');
@@ -110,5 +118,24 @@ await db.insert('cardstable', {'name': 'Ten', 'suit': 'clubs', 'imageURl': '/ass
 await db.insert('cardstable', {'name': 'Jack', 'suit': 'clubs', 'imageURl': '/assets/jack.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
 await db.insert('cardstable', {'name': 'Queen', 'suit': 'clubs', 'imageURl': '/assets/queen.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
 await db.insert('cardstable', {'name': 'King', 'suit': 'clubs', 'imageURl': '/assets/king.png', 'imageBytes': '', 'folderId': 4, 'createdAt': DateTime.now().toIso8601String()});
+  }
+  Future<int> insertcard(Map<String, dynamic> row) async {
+    return await cardsdb.insert('cardstable', row);
+  }
+  Future<int> updatecard(Map<String, dynamic> row) async {
+    int id = row[cardid];
+    return await cardsdb.update(
+      'cardstable',
+      row,
+      where: '$cardid = ?',
+      whereArgs: [id],
+    );
+  }
+  Future<int> delete(int id) async {
+    return await cardsdb.delete(
+      'cardstable',
+      where: '$cardfolderID = ?',
+      whereArgs: [id],
+    );
   }
 }
