@@ -138,4 +138,17 @@ await db.insert('cardstable', {'name': 'King', 'suit': 'clubs', 'imageURl': '/as
       whereArgs: [id],
     );
   }
+
+  Future<String> getcardimage(int id) async {
+    final result = await cardsdb.query(
+      'cardstable',
+      columns: [cardimageUrl],
+      where: '$cardid = ?',
+      whereArgs: [id],
+    );
+    if (result.isNotEmpty && result[0][cardimageUrl] != null) {
+      return result[0][cardimageUrl] as String;
+    }
+    return '';
+  }
 }
