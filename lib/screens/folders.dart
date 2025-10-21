@@ -40,7 +40,7 @@ class _FoldersScreenState extends State<FoldersScreen> {
             child: ListTile(
               leading: folder.previewImage != null && folder.previewImage!.isNotEmpty
                   ? Image.asset(folder.previewImage!, width: 50, height: 50)
-                  : const SizedBox(width: 50, height: 50),
+                  : const SizedBox(width: 60, height: 100),
               title: Text(folder.name),
               subtitle: Text('Created: ${folder.createdAt.toLocal()}'),
               trailing: IconButton(

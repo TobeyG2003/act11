@@ -21,14 +21,15 @@ class _CardsScreenState extends State<CardsScreen> {
   }
 
   Future<void> _loadCards() async {
-  await _cardRepo.debugPrintAllCards();
-  final loadedCards = await _cardRepo.getCardsByFolder(widget.folder.id!);
-  print('cards for ${widget.folder.name}: ${loadedCards.length}');
-  setState(() {
-    cards = loadedCards;
-  });
-}
-
+    await _cardRepo.debugPrintAllCards();
+    final loadedCards = await _cardRepo.getCardsByFolder(widget.folder.id!);
+    if (loadedCards.length > 6){
+        loadedCards.removeRange(6,loadedCards.length);
+    }
+    setState(() {
+      cards = loadedCards;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,16 @@ class _CardsScreenState extends State<CardsScreen> {
                   IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () async {
+                      final count = await _cardRepo.countCardsInFolder(widget.folder.id!);
+                      if (count <= 3) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Each folder must have at least 3 cards.'),
+                          ),
+                        );
+                        return;
+                      }
+
                       await _cardRepo.deleteCard(card.id!);
                       await _loadCards();
                     },
@@ -57,7 +68,52 @@ class _CardsScreenState extends State<CardsScreen> {
                   IconButton(
                     icon: const Icon(Icons.edit, color: Colors.blue),
                     onPressed: () async {
-                      // placeholder for update
+                      final newNameController = TextEditingController(text: card.name);
+                      final newSuitController = TextEditingController(text: card.suit);
+
+                      await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Edit Card'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextField(
+                                controller: newNameController,
+                                decoration: const InputDecoration(labelText: 'Name'),
+                              ),
+                              TextField(
+                                controller: newSuitController,
+                                decoration: const InputDecoration(labelText: 'Suit'),
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                final updatedCard = models.Card(
+                                  id: card.id,
+                                  name: newNameController.text.trim(),
+                                  suit: newSuitController.text.trim(),
+                                  imageUrl:
+                                      '/assets/${newNameController.text.trim().toLowerCase()}.png',
+                                  folderId: card.folderId,
+                                  createdAt: DateTime.now(),
+                                );
+
+                                await _cardRepo.updateCard(updatedCard);
+                                Navigator.pop(context);
+                                await _loadCards();
+                              },
+                              child: const Text('Save'),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -68,16 +124,71 @@ class _CardsScreenState extends State<CardsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
- 
-          await _cardRepo.insertCard(
-            models.Card(
-              name: 'Ace',
-              suit: widget.folder.name.toLowerCase(),
-              imageUrl: '/assets/ace.png',
-              createdAt: DateTime.now(),
+          final count = await _cardRepo.countCardsInFolder(widget.folder.id!);
+          if (count >= 6) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Each folder can only have up to 6 cards.'),
+              ),
+            );
+            return;
+          }
+
+          final nameController = TextEditingController();
+          final suitController =
+              TextEditingController(text: widget.folder.name.toLowerCase());
+
+          await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Add Card'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(labelText: 'Name'),
+                  ),
+                  TextField(
+                    controller: suitController,
+                    decoration: const InputDecoration(labelText: 'Suit'),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final name = nameController.text.trim();
+                    final suit = suitController.text.trim();
+
+                    if (name.isEmpty || suit.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Both fields required.')),
+                      );
+                      return;
+                    }
+
+                    final newCard = models.Card(
+                      name: name,
+                      suit: suit,
+                      imageUrl: '/assets/${name.toLowerCase()}.png',
+                      folderId: widget.folder.id!,
+                      createdAt: DateTime.now(),
+                    );
+
+                    await _cardRepo.insertCard(newCard);
+                    Navigator.pop(context);
+                    await _loadCards();
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
             ),
           );
-          await _loadCards();
         },
         child: const Icon(Icons.add),
       ),
