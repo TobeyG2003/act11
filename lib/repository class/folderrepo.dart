@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 import 'database_helper.dart';
-import 'main.dart'
+import 'main.dart';
 
 class FolderRepository {
   final dbHelper = DatabaseHelper();
